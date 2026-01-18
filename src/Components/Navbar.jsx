@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars ,faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
+
 import "./Navbar.css"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export default function Navbar(){
 
     const [isopen ,setIsOpen] = useState(false)
@@ -10,6 +11,8 @@ export default function Navbar(){
 
         setIsOpen(!isopen);
     }
+
+    
     
     return (
         
@@ -21,7 +24,8 @@ export default function Navbar(){
                <Link className="Link" to="/marketplace">Marketplace</Link>
                <Link className="Link" to="/how-it-work">How it work</Link>
                <Link className="Link" to="/farmers">For Farmers</Link>
-               <Link className="Link" to="/login">Login</Link>
+               <Link className="Link" to="/login">Sign Up</Link>
+               <Link className="Link" to="/login">Login <FontAwesomeIcon icon={faArrowRightToBracket}/></Link>
             </nav>
 
             <FontAwesomeIcon id="Menubar" icon={faBars} onClick={handleMenuBar}/>
@@ -32,7 +36,11 @@ export default function Navbar(){
                <Link className="Link" to="/marketplace">Marketplace</Link>
                <Link className="Link" to="/how-it-work">How it work</Link>
                <Link className="Link" to="/farmers">For Farmers</Link>
-               <Link className="Link" to="/login">Login</Link>
+               <hr />
+               <Link className="Link" to="/login">Sign Up </Link>
+               <Link className="Link" to="/login">Login <FontAwesomeIcon icon={faArrowRightToBracket}/></Link>
+               <hr />
+               <span>© Shree Anna 2026</span>
             </nav>
         </div>
     )

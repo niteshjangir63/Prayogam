@@ -24,30 +24,82 @@
     text-decoration: none;
     color: black;
     transition: ease-in-out .2s;
-    
+}
+
+.Link:nth-last-child(1){
+
+     font-weight: bold;
+    border:none;
+    font-size: .9rem;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 5px 5px;
+    border-radius: .3rem;
+    color: white;
+    width: 70px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(56, 27, 0);
+    transition: ease-in-out .2s;
+    border: solid 1px rgb(0, 0, 0);
 
 }
+
+.Link:nth-last-child(1):hover{
+
+    background-color: white;
+    color: black;
+}
+
+
+
+
+
+.Link:nth-last-child(1):hover{
+
+    background-color: white;
+    color: black;
+}
+
+
+
+
+.Link:nth-last-child(2){
+
+     font-weight: bold;
+    border:none;
+    font-size: .9rem;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 5px 5px;
+    width: 70px;
+    align-items: center;
+    justify-content: center;
+    border-radius: .3rem;
+    color: rgb(0, 0, 0);
+    
+    transition: ease-in-out .2s;
+    border: solid 1px rgb(0, 0, 0);
+
+}
+
+.Link:nth-last-child(2):hover{
+
+    background-color: white;
+    color: black;
+}
+
+
+
 
 .Link:hover{
 
     color:green;
     border-radius: .3rem;
 }
-.Link:nth-last-child(1){
 
-    border: solid 2px ;
-    padding: 2px 5px;
-    border-radius: .3rem;
-    transition: ease-in-out .2s;
-
-    
-}
-
-.Link:nth-last-child(1):hover{
-    background-color: green;
-    color: white;
-    text-decoration: none;
-}
 
 
 
@@ -60,6 +112,44 @@
 
         background-color: rgba(128, 128, 128, 0.413);
     }
+
+    .Link:nth-last-child(3){
+
+        font-weight: bold;
+    border:none;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 2px 5px;
+    border-radius: .3rem;
+    color: white;
+    background-color: rgb(56, 27, 0);
+    transition: ease-in-out .2s;
+
+}
+.Link:nth-last-child(4){
+     display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+font-weight: bold;
+    border: solid 1px ;
+    padding: 2px 5px;
+    border-radius: .3rem;
+    transition: ease-in-out .2s;
+}
+
+.Link:nth-last-child(3):hover{
+    scale: .98;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+.Link:nth-last-child(4):hover{
+    background-color: green;
+    color: white;
+     scale: .98;
+    text-decoration: none;
+}
     
 }
 
@@ -74,14 +164,20 @@
     scale: 1.1;
 }
 
+#Menubar::selection{
+
+    background-color: transparent;
+}
+
 #Sidebarlinks{
 
+    padding-top: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.281);
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    gap: 30px;
+    gap: 15px;
     position: absolute;
     right: 0;
     top: 80px;
@@ -94,11 +190,17 @@
 }
 
 #Sidebarlinks > .Link{
+    
     overflow: hidden;
     width: 95%;
     padding: 10px;
 
 }
+
+
+
+
+
 
 @media (max-width:920px) {
     
@@ -109,3 +211,13 @@
         display: flex;
     }
 }
+
+
+hr{
+    width: 95%;
+   border: solid rgba(0, 0, 0, 0.482) 1px;
+}
+hr:nth-last-child(2){
+
+    width: 50%;
+} 
