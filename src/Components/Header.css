@@ -1,0 +1,23 @@
+.HeaderSlider{
+
+    width: 100%;
+    height: 600px;
+    background-color: chocolate;
+    display: flex;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+.HeaderSlider::-webkit-scrollbar{
+    display: none;
+}
+.HeaderSlider > img{
+
+    width: inherit;
+    object-fit:cover;
+    scroll-snap-align: start;
+    height: inherit;
+    flex-shrink: 0;
+}

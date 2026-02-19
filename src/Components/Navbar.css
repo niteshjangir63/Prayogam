@@ -9,8 +9,23 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.281);
     padding: 10px;
     position: relative;
+    
 }
+@keyframes updown {
+    
+    100%{
 
+        transform: translateY(100deg);
+    }
+}
+#logo{
+
+    font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+
+}
 #Links{
 
     display: flex;
@@ -114,7 +129,7 @@
     }
 
     .Link:nth-last-child(3){
-
+text-wrap: nowrap;
         font-weight: bold;
     border:none;
     overflow: hidden;
@@ -128,6 +143,7 @@
 
 }
 .Link:nth-last-child(4){
+    text-wrap: nowrap;
      display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
@@ -194,7 +210,7 @@ font-weight: bold;
     overflow: hidden;
     width: 95%;
     padding: 10px;
-
+    text-wrap: nowrap;
 }
 
 
