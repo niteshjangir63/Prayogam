@@ -1,4 +1,6 @@
+import SignUp from "../Components/Authenthication/SignUp";
+
 export default function Signup(){
 
-    return <h1>Signup</h1>
+    return <SignUp/>
 }
