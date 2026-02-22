@@ -1,0 +1,42 @@
+
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: #243b5a;
+  color: white;
+  padding: 20px;
+}
+
+
+.logo {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+
+.sidebar nav a {
+  display: block;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background: #1b2f4a;
+}
+
+
+.logout {
+  margin-top: 20px;
+  background: #e53935;
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}

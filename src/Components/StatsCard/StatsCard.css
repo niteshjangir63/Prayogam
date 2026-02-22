@@ -1,0 +1,30 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat-card {
+  padding: 20px;
+  color: white;
+  border-radius: 10px;
+}
+
+.green {
+  background: #4caf50;
+}
+
+.orange {
+  background: #ff9800;
+}
+
+.blue {
+  background: #2196f3;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}

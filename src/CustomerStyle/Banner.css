@@ -1,0 +1,17 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #e9f1dc;
+  padding: 30px;
+  border-radius: 16px;
+  margin: 20px;
+}
+
+.banner-text h2 {
+  color: #2f4f1f;
+}
+
+.banner img {
+  width: 140px;
+}

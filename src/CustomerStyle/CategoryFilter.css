@@ -1,0 +1,15 @@
+.category-filter {
+  margin: 20px;
+}
+
+.chips {
+  display: flex;
+  gap: 10px;
+}
+
+.chips span {
+  background: #f2f5e9;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}

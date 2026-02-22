@@ -1,31 +1,53 @@
 
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { useState } from "react";
 import "./SignUp.css"
 export default function SignUp() {
+
+    const navigate = useNavigate();
+    const { setCanAccessOtp } = useAuth();
+    const [number, setNumber] = useState("");
+    const { setOtp } = useAuth();
+
+    const sendOtp = (e) => {
+        e.preventDefault();
+
+        if (number.length !== 10) return;
+        const newOtp = Math.floor(100000 + Math.random() * 900000);
+        setOtp(newOtp);
+        
+        
+        setCanAccessOtp(true);
+        navigate("/otp");
+    };
+
     return (
         <div className="Signup">
-            <h1>Sign Up</h1>
+            <h1>Signup</h1>
 
             <div className="inputs">
-                <form>
+                <form onSubmit={sendOtp}>
                     <div className="input">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" name="name"/>
+                        <label htmlFor="mobile">Mobile Number</label>
+                        <input
+                            id="mobile"
+                            type="tel"
+                            inputMode="numeric"
+                            maxLength={10}
+                            value={number}
+                            onChange={(e) =>
+                                setNumber(e.target.value.replace(/\D/g, ""))
+                            }
+                            placeholder="Enter mobile number"
+                        />
                     </div>
 
-                    <div className="input">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" name="email"/>
-                    </div>
+                    <button type="submit">Send OTP</button>
 
-                    <div className="input">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password"/>
-                    </div>
-
-                    <button type="submit">
-                        Sign Up
-
-                    </button>
+                    <span>
+                        Already have an account? <Link to="/login">Login</Link>
+                    </span>
                 </form>
             </div>
         </div>

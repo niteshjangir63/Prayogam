@@ -1,31 +1,44 @@
-import { Route,Routes } from 'react-router-dom'
-import Navbar from './Components/Navbar.jsx'
-import Home from './pages/Home.jsx'
-import Marketplace from './pages/Marketplace.jsx'
-import Farmer from './pages/Farmer.jsx'
-import LoginPage from './pages/LoginPage.jsx'
-import Signup from './pages/Signup.jsx'
-import Page404 from './pages/Page404.jsx'
+import { Route, Routes } from "react-router-dom";
+import FarmerDashboard from "./pages/FarmerDashboard/FarmerDashboard";
+import Login from "./Components/Authenthication/Login";
+import SignUp from "./Components/Authenthication/SignUp";
+import Otp from "./Components/Authenthication/Otp";
+import ProtectedRoute from "./ProtectedRoute";
+import ProtectedOtpRoute from "./ProtectedOtpRoute";
+import SelectRole from "./Components/SelectRole/SelectRole";
+import MilletDashboard from "./pages/MilletDashBoard/MilletDashboard";
 
 function App() {
-
   return (
-
-    <>
-    <Navbar/>
     <Routes>
+      <Route path="/" element={<SelectRole />} />
+      <Route
+        path="/farmer"
+        element={
+          <ProtectedRoute>
+            <FarmerDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customer"
+        element={
+          
+            <MilletDashboard/>
+          
+        }
+      />
 
-      <Route path='/' element={<Home/>}/>
-      <Route path='/marketplace' element={<Marketplace/>}/>
-      <Route path='/farmers' element={<Farmer/>}/>
-      <Route path='/login' element={<LoginPage/>}/>
-      <Route path='/signup' element={<Signup/>}/>
-      <Route path='*' element={<Page404/>}/>
 
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/otp" element={
+        <ProtectedOtpRoute>
+          <Otp />
+        </ProtectedOtpRoute>
+      } />
     </Routes>
-    
-    </>
-  )
+  );
 }
 
-export default App
+export default App;

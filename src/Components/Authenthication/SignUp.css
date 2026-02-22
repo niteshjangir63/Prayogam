@@ -1,14 +1,14 @@
-/* Google Font */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* Reset */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Full Height Setup (Important for React) */
+
 html, body, #root {
   height: 100%;
   font-family: 'Poppins', sans-serif;
@@ -30,7 +30,7 @@ body {
   align-items: center;
 }
 
-/* Main Signup/Login Card */
+
 .Signup {
     margin-top: auto;
     margin-bottom: auto;
@@ -44,7 +44,7 @@ body {
   animation: fadeIn 0.8s ease-in-out;
 }
 
-/* Heading */
+
 .Signup h1 {
   margin-bottom: 25px;
   color: #2e7d32;
@@ -52,13 +52,13 @@ body {
   font-size: 28px;
 }
 
-/* Input Container */
+
 .input {
   margin-bottom: 18px;
   text-align: left;
 }
 
-/* Labels */
+
 .input label {
   display: block;
   font-size: 14px;
@@ -67,7 +67,7 @@ body {
   font-weight: 500;
 }
 
-/* Inputs */
+
 .input input {
   width: 100%;
   padding: 12px;
@@ -79,14 +79,14 @@ body {
   background-color: #f9fff9;
 }
 
-/* Input Focus Effect */
+
 .input input:focus {
   border-color: #2e7d32;
   box-shadow: 0 0 10px rgba(46, 125, 50, 0.4);
   background-color: white;
 }
 
-/* Button */
+
 button {
   width: 100%;
   padding: 12px;
@@ -101,18 +101,18 @@ button {
   margin-top: 10px;
 }
 
-/* Button Hover */
+
 button:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(46, 125, 50, 0.5);
 }
 
-/* Button Click Effect */
+
 button:active {
   transform: scale(0.97);
 }
 
-/* Animation */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -124,7 +124,7 @@ button:active {
   }
 }
 
-/* Responsive */
+
 @media (max-width: 400px) {
   .Signup {
     width: 90%;
