@@ -7,7 +7,7 @@ const Navbar = () => {
 
       <div className="search-box">
         <input type="text" placeholder="क्या खरीदना है ?" />
-        <span className="mic">🎤</span>
+        <span className="mic"><i class="fa-solid fa-microphone"></i></span>
       </div>
 
       <div className="nav-right">

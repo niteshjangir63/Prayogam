@@ -7,6 +7,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import ProtectedOtpRoute from "./ProtectedOtpRoute";
 import SelectRole from "./Components/SelectRole/SelectRole";
 import MilletDashboard from "./pages/MilletDashBoard/MilletDashboard";
+import AddMillets from "./Components/AddMillets/AddMillets";
 
 function App() {
   return (
@@ -23,11 +24,15 @@ function App() {
       <Route
         path="/customer"
         element={
-          
-            <MilletDashboard/>
-          
+
+          <MilletDashboard />
+
         }
       />
+      <Route path="/add" element={
+        <ProtectedRoute>
+          <AddMillets />
+        </ProtectedRoute>} />
 
 
       <Route path="/login" element={<Login />} />

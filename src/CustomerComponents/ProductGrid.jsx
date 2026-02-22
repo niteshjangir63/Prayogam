@@ -35,6 +35,41 @@ const ProductGrid = () => {
         farmer="भेरु"
         village="नीमच"
       />
+      <ProductCard
+        image="https://i.imgur.com/sv0JQ5N.jpg"
+        name="कोदो"
+        price="100"
+        farmer="भेरु"
+        village="नीमच"
+      />
+      <ProductCard
+        image="https://i.imgur.com/sv0JQ5N.jpg"
+        name="कोदो"
+        price="100"
+        farmer="भेरु"
+        village="नीमच"
+      />
+      <ProductCard
+        image="https://i.imgur.com/sv0JQ5N.jpg"
+        name="कोदो"
+        price="100"
+        farmer="भेरु"
+        village="नीमच"
+      />
+      <ProductCard
+        image="https://i.imgur.com/sv0JQ5N.jpg"
+        name="कोदो"
+        price="100"
+        farmer="भेरु"
+        village="नीमच"
+      />
+      <ProductCard
+        image="https://i.imgur.com/sv0JQ5N.jpg"
+        name="कोदो"
+        price="100"
+        farmer="भेरु"
+        village="नीमच"
+      />
     </div>
   );
 };

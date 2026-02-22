@@ -10,7 +10,15 @@
   margin-bottom: 20px;
   padding: 10px;
 }
+.Language{
+  
+  margin-left: auto;
+  margin-right: 10px;
+}
+.Language > select{
 
+  padding: 5px;
+}
 .user {
   font-size: 14px;
 }
