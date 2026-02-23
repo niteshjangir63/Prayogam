@@ -3,12 +3,12 @@ import "../CustomerStyle/CategoryFilter.css";
 const CategoryFilter = () => {
   return (
     <div className="category-filter">
-      <h3>सभी मिलेट्स</h3>
+      <h3>All Millets</h3>
       <div className="chips">
-        <span>🌾 बाजरा</span>
-        <span>🌾 ज्वार</span>
-        <span>🌾 रागी</span>
-        <span>🌾 कोदो</span>
+        <span>🌾 Bajra</span>
+        <span>🌾 Jawar</span>
+        <span>🌾 Raagi</span>
+        <span>🌾 Kodo</span>
       </div>
     </div>
   );

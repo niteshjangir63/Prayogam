@@ -1,5 +1,17 @@
 .category-filter {
-  margin: 20px;
+  margin-right: auto;
+ margin-left: 80px;
+ margin-bottom: 30px;
+ margin-top: 30px;
+ 
+ 
+}
+
+
+.category-filter > h3{
+
+  font-weight: bold;
+  margin: 10px;
 }
 
 .chips {

@@ -18,6 +18,7 @@ export default function Login() {
 
     const otp = Math.floor(100000 + Math.random() * 900000);
     console.log("OTP (demo only):", otp);
+    alert(otp)
 
     setGeneratedOtp(otp);
     setCanAccessOtp(true);

@@ -8,10 +8,10 @@ const ProductCard = ({ image, name, price, farmer, village }) => {
       <h4>{name}</h4>
       <p className="price">₹ {price} / kg</p>
 
-      <p>किसान: {farmer}</p>
-      <p>गांव: {village}</p>
+      <p>Farmer: {farmer}</p>
+      <p>Village: {village}</p>
 
-      <button>🛒 सीधे खरीदें</button>
+      <button>🛒 Direct Buy</button>
     </div>
   );
 };

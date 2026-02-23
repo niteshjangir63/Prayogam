@@ -1,11 +1,9 @@
 .navbar {
   backdrop-filter: blur(20px);
   display: flex;
-  width: 90%;
+  width: 100%;
   position: sticky;
-  top:10px;
-  border-radius: 1rem;
-  margin-top: 20px;
+  top:0px;
   align-items: center;
   justify-content: space-between;
   padding: 12px 24px;

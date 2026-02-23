@@ -5,70 +5,35 @@ const ProductGrid = () => {
   return (
     <div className="product-grid">
       <ProductCard
-        image="https://i.imgur.com/WbQZ8xC.jpg"
-        name="बाजरा"
+        image="https://images.herzindagi.info/image/2021/Feb/bajra-m_g.jpg"
+        name="Bajra"
         price="120"
-        farmer="रमेश"
-        village="जयपुर"
+        farmer="Ramesh"
+        village="Jaipur"
       />
 
       <ProductCard
-        image="https://i.imgur.com/jA6Q9JG.jpg"
-        name="ज्वार"
+        image="https://tse1.mm.bing.net/th/id/OIP.JANbIWUtEL-TaJ8Myh_RHQHaFj?pid=Api&h=220&P=0"
+        name="Jawar"
         price="90"
-        farmer="सुनील"
-        village="कोटा"
+        farmer="Sunil"
+        village="Kota"
       />
 
       <ProductCard
-        image="https://i.imgur.com/TaF9vZy.jpg"
-        name="रागी"
+        image="https://tse4.mm.bing.net/th/id/OIP.d6e0hBq2p0Sm45zaQDNEoAHaEK?pid=Api&h=220&P=0"
+        name="Raagi"
         price="110"
-        farmer="सुरेश"
-        village="उदयपुर"
+        farmer="Suresh"
+        village="Udaipur"
       />
 
       <ProductCard
-        image="https://i.imgur.com/sv0JQ5N.jpg"
-        name="कोदो"
+        image="https://tse4.mm.bing.net/th/id/OIP.h9h3vD32w_NmTLOPzU3BzgHaE7?pid=Api&h=220&P=0"
+        name="Kodo"
         price="100"
-        farmer="भेरु"
-        village="नीमच"
-      />
-      <ProductCard
-        image="https://i.imgur.com/sv0JQ5N.jpg"
-        name="कोदो"
-        price="100"
-        farmer="भेरु"
-        village="नीमच"
-      />
-      <ProductCard
-        image="https://i.imgur.com/sv0JQ5N.jpg"
-        name="कोदो"
-        price="100"
-        farmer="भेरु"
-        village="नीमच"
-      />
-      <ProductCard
-        image="https://i.imgur.com/sv0JQ5N.jpg"
-        name="कोदो"
-        price="100"
-        farmer="भेरु"
-        village="नीमच"
-      />
-      <ProductCard
-        image="https://i.imgur.com/sv0JQ5N.jpg"
-        name="कोदो"
-        price="100"
-        farmer="भेरु"
-        village="नीमच"
-      />
-      <ProductCard
-        image="https://i.imgur.com/sv0JQ5N.jpg"
-        name="कोदो"
-        price="100"
-        farmer="भेरु"
-        village="नीमच"
+        farmer="Yudhveer"
+        village="Jaipur"
       />
     </div>
   );

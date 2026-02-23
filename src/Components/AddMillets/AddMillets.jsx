@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AddMillets.css";
+import { Link } from "react-router-dom";
 
 export default function AddMillets({ onAddMillet }) {
   const [millet, setMillet] = useState({
@@ -27,7 +28,8 @@ export default function AddMillets({ onAddMillet }) {
     setMillet({ name: "", price: "", quantity: "", image: null });
   };
 
-  return (
+  return ( <>
+  <Link>Back</Link>
     <form className="add-millet-form" onSubmit={handleSubmit}>
       <h2>Add Millet</h2>
       <input
@@ -59,5 +61,6 @@ export default function AddMillets({ onAddMillet }) {
       />
       <button type="submit">Add Millet</button>
     </form>
+    </>
   );
 }

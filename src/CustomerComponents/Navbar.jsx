@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="logo">🌾 Prayogam</div>
 
       <div className="search-box">
-        <input type="text" placeholder="क्या खरीदना है ?" />
+        <input type="text" placeholder="Search Millets ?" />
         <span className="mic"><i class="fa-solid fa-microphone"></i></span>
       </div>
 
