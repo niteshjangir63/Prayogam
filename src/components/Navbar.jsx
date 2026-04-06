@@ -1,151 +1,151 @@
 import React from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import {logoutUser} from "../api/authApi";
+import { logoutUser } from "../api/authApi";
 
-function Navbar(){
+function Navbar() {
 
-const {user,setUser} = useAuth();
-const navigate = useNavigate();
+    const { user, setUser } = useAuth();
+    const navigate = useNavigate();
 
-const handleLogout = async ()=>{
+    const handleLogout = async () => {
 
-try{
+        try {
 
-await logoutUser();
+            await logoutUser();
 
-setUser(null); // clear user state
+            setUser(null); // clear user state
 
-navigate("/login");
+            navigate("/login");
 
-}catch(err){
-console.log(err);
-}
+        } catch (err) {
+            console.log(err);
+        }
 
-};
+    };
 
-return(
+    return (
 
-<nav className="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
 
-<div className="container">
+            <div className="container">
 
-<Link className="navbar-brand fw-bold" to="/">
-🌾 Millet Platform
-</Link>
+                <Link className="navbar-brand fw-bold" to="/">
+                    🌾 Millet Platform
+                </Link>
 
-<button
-className="navbar-toggler"
-data-bs-toggle="collapse"
-data-bs-target="#menu"
->
-<span className="navbar-toggler-icon"></span>
-</button>
+                <button
+                    className="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menu"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-<div className="collapse navbar-collapse" id="menu">
+                <div className="collapse navbar-collapse" id="menu">
 
-{/* SEARCH BAR */}
+                    {/* SEARCH BAR */}
 
-<form className="d-flex mx-auto w-50">
+                    <form className="d-flex mx-auto w-50">
 
-<input
-className="form-control me-2"
-type="search"
-placeholder="Search millets..."
-/>
+                        <input
+                            className="form-control me-2"
+                            type="search"
+                            placeholder="Search millets..."
+                        />
 
-<button className="btn btn-light">
-Search
-</button>
+                        <button className="btn btn-light">
+                            Search
+                        </button>
 
-</form>
+                    </form>
 
 
-<ul className="navbar-nav ms-auto align-items-center">
+                    <ul className="navbar-nav ms-auto align-items-center">
 
-{/* MARKETPLACE */}
+                        {/* MARKETPLACE */}
 
-<li className="nav-item">
-<Link className="nav-link" to="/marketplace">
-Marketplace
-</Link>
-</li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/marketplace">
+                                Marketplace
+                            </Link>
+                        </li>
 
-{/* CART */}
+                        {/* CART */}
 
-<li className="nav-item">
-<Link className="nav-link" to="/cart">
-🛒
-</Link>
-</li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/cart">
+                                🛒
+                            </Link>
+                        </li>
 
-{/* LOGIN OR USER MENU */}
+                        {/* LOGIN OR USER MENU */}
 
-{!user ? (
+                        {!user ? (
 
-<li className="nav-item">
-<Link className="nav-link" to="/login">
-Login
-</Link>
-</li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/login">
+                                    Login
+                                </Link>
+                            </li>
 
-) : (
+                        ) : (
 
-<li className="nav-item dropdown">
+                            <li className="nav-item dropdown">
 
-<a
-className="nav-link dropdown-toggle"
-href="#"
-role="button"
-data-bs-toggle="dropdown"
->
+                                <a
+                                    className="nav-link dropdown-toggle"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                >
 
-👤 {user?.name || "User"}
+                                    👤 {user?.name || "User"}
 
-</a>
+                                </a>
 
-<ul className="dropdown-menu dropdown-menu-end">
+                                <ul className="dropdown-menu dropdown-menu-end">
 
-<li>
-<Link className="dropdown-item" to="/profile">
-Profile
-</Link>
-</li>
+                                    <li>
+                                        <Link className="dropdown-item" to="/profile">
+                                            Profile
+                                        </Link>
+                                    </li>
 
-<li>
-<Link className="dropdown-item" to="/orders">
-Orders
-</Link>
-</li>
+                                    <li>
+                                        <Link className="dropdown-item" to="/orders">
+                                            Orders
+                                        </Link>
+                                    </li>
 
-<li>
-<hr className="dropdown-divider"/>
-</li>
+                                    <li>
+                                        <hr className="dropdown-divider" />
+                                    </li>
 
-<li>
-<button
-className="dropdown-item"
-onClick={handleLogout}
->
-Logout
-</button>
-</li>
+                                    <li>
+                                        <button
+                                            className="dropdown-item"
+                                            onClick={handleLogout}
+                                        >
+                                            Logout
+                                        </button>
+                                    </li>
 
-</ul>
+                                </ul>
 
-</li>
+                            </li>
 
-)}
+                        )}
 
-</ul>
+                    </ul>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</nav>
+        </nav>
 
-)
+    )
 
 }
 

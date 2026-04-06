@@ -1,165 +1,149 @@
-import React,{useState} from "react";
-import {sendOTP,verifyOTP} from "../api/authApi";
+import React, { useState } from "react";
+import { sendOTP, verifyOTP } from "../api/authApi";
 import Loader from "../components/Loader";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-function Login(){
 
-const [phone,setPhone]=useState("");
-const [otp,setOtp]=useState("");
+function Login() {
+    const [phone, setPhone] = useState("");
+    const [otp, setOtp] = useState("");
 
-const [otpSent,setOtpSent]=useState(false);
-const [loading,setLoading]=useState(false);
+    const [otpSent, setOtpSent] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-const navigate = useNavigate();
-const {setUser} = useAuth();
+    const navigate = useNavigate();
+    const { setUser } = useAuth();
 
+    // SEND OTP
+    const handleSendOtp = async () => {
+        if (!phone) {
+            alert("Please enter phone number");
+            return;
+        }
 
-// SEND OTP
-const handleSendOtp = async()=>{
+        setLoading(true);
 
-if(!phone){
-alert("Enter phone number");
-return;
-}
+        try {
+            await sendOTP({ phone });
+            setOtpSent(true);
+            alert("OTP sent successfully");
+        } catch (err) {
+            console.log(err);
+            alert("Failed to send OTP");
+        }
 
-setLoading(true);
+        setLoading(false);
+    };
 
-try{
+    // VERIFY OTP
+    const handleVerifyOtp = async () => {
+        if (!otp) {
+            alert("Please enter OTP");
+            return;
+        }
 
-await sendOTP({phone});
+        setLoading(true);
 
-setOtpSent(true);
+        try {
+            const res = await verifyOTP({
+                phone,
+                otp,
+            });
 
-alert("OTP sent. Check backend terminal.");
+            const user = res.data;
 
-}catch(err){
-console.log(err);
-}
+            setUser(user);
 
-setLoading(false);
+            setPhone("");
+            setOtp("");
+            setOtpSent(false);
 
-};
+            alert("Login successful");
 
+            if (user.role === "farmer") {
+                navigate("/farmer/dashboard");
+            } else if (user.role === "admin") {
+                navigate("/admin/dashboard");
+            } else {
+                navigate("/customer/dashboard");
+            }
+        } catch (err) {
+            console.log(err);
+            alert("Invalid OTP");
+        }
 
-// VERIFY OTP
-const handleVerifyOtp = async()=>{
+        setLoading(false);
+    };
 
-if(!otp){
-alert("Enter OTP");
-return;
-}
+    if (loading) return <Loader />;
 
-setLoading(true);
+    return (
+        <div className="container d-flex justify-content-center align-items-center vh-100">
+            <div className="card shadow-lg p-4"
+                style={{ width: "400px", borderRadius: "15px" }}
+            >
+                <div className="card-body">
+                    <h3 className="text-center mb-2">Welcome Back 👋</h3>
+                    <p className="text-muted text-center mb-4">
+                        Login using your phone number
+                    </p>
 
-try{
+                    {/* PHONE INPUT */}
+                    <div className="mb-3">
+                        <label className="form-label">Phone Number</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter phone number"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                    </div>
 
-const res = await verifyOTP({
-phone,
-otp
-});
+                    {/* SEND OTP */}
+                    {!otpSent && (
+                        <button
+                            className="btn btn-success w-100"
+                            onClick={handleSendOtp}
+                        >
+                            Send OTP 📩
+                        </button>
+                    )}
 
-const user = res.data;
+                    {/* OTP SECTION */}
+                    {otpSent && (
+                        <>
+                            <div className="mb-3 mt-3">
+                                <label className="form-label">Enter OTP</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter OTP"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                />
+                            </div>
 
-setUser(user); // save user in context
+                            <button
+                                className="btn btn-primary w-100"
+                                onClick={handleVerifyOtp}
+                            >
+                                Verify OTP 🔐
+                            </button>
 
-// CLEAR INPUTS
-setPhone("");
-setOtp("");
-setOtpSent(false);
-
-alert("Login successful");
-
-// REDIRECT BASED ON ROLE
-if(user.role === "farmer"){
-navigate("/farmer/dashboard");
-}
-else if(user.role === "admin"){
-navigate("/admin/dashboard");
-}
-else{
-navigate("/customer/dashboard");
-}
-
-}catch(err){
-
-console.log(err);
-alert("Invalid OTP");
-
-}
-
-setLoading(false);
-
-};
-
-
-if(loading) return <Loader/>
-
-return(
-
-<div className="row justify-content-center">
-
-<div className="col-md-4">
-
-<h3 className="mb-3 text-center">Login</h3>
-
-<input
-className="form-control mb-3"
-placeholder="Phone Number"
-value={phone}
-onChange={(e)=>setPhone(e.target.value)}
-/>
-
-
-{/* SEND OTP BUTTON */}
-
-{!otpSent && (
-
-<button
-className="btn btn-success w-100"
-onClick={handleSendOtp}
->
-
-Send OTP
-
-</button>
-
-)}
-
-
-{/* OTP INPUT */}
-
-{otpSent && (
-
-<>
-
-<input
-className="form-control mt-3"
-placeholder="Enter OTP"
-value={otp}
-onChange={(e)=>setOtp(e.target.value)}
-/>
-
-<button
-className="btn btn-primary w-100 mt-3"
-onClick={handleVerifyOtp}
->
-
-Verify OTP
-
-</button>
-
-</>
-
-)}
-
-</div>
-
-</div>
-
-)
-
+                            <button
+                                className="btn btn-link w-100 mt-2"
+                                onClick={() => setOtpSent(false)}
+                            >
+                                Change phone number
+                            </button>
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default Login;
