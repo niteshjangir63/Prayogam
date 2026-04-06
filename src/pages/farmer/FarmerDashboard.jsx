@@ -15,8 +15,17 @@ const fetchData=async()=>{
 
 try{
 
-const res=await getMillets();
+const res = await getMillets();
+
+/* Ensure millets is always an array */
+
+if(Array.isArray(res.data)){
 setMillets(res.data);
+}else if(Array.isArray(res.data.data)){
+setMillets(res.data.data);
+}else{
+setMillets([]);
+}
 
 }
 catch(err){
@@ -60,23 +69,42 @@ onClick={()=>navigate("/farmer/add-millet")}
 <div className="row mb-4">
 
 <div className="col-md-4">
+
 <div className="card shadow-sm">
+
 <div className="card-body">
+
 <h6>Total Millets</h6>
+
 <h3>{millets.length}</h3>
-</div>
-</div>
+
 </div>
 
+</div>
+
+</div>
+
+
 <div className="col-md-4">
+
 <div className="card shadow-sm">
+
 <div className="card-body">
+
 <h6>Total Stock</h6>
+
 <h3>
-{millets.reduce((a,b)=>a + (b.quantity || 0),0)} kg
+{
+Array.isArray(millets)
+? millets.reduce((a,b)=>a + (b.quantity || 0),0)
+: 0
+} kg
 </h3>
+
 </div>
+
 </div>
+
 </div>
 
 </div>
@@ -84,7 +112,7 @@ onClick={()=>navigate("/farmer/add-millet")}
 
 {/* MILLET LIST */}
 
-{millets.length===0 ? (
+{millets.length === 0 ? (
 
 <div className="alert alert-warning">
 You have not added any millets yet
@@ -98,11 +126,13 @@ You have not added any millets yet
 
 <div key={m._id} className="col-sm-6 col-md-4 col-lg-3">
 
-<div className="card shadow-sm h-100">
+<div className="card shadow-sm h-100 border-0">
 
 <div className="card-body">
 
-<h5 className="fw-bold">{m.name}</h5>
+<h5 className="fw-bold text-success">
+{m.name}
+</h5>
 
 <p>Price: ₹{m.price}</p>
 
