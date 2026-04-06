@@ -1,11 +1,13 @@
 import React,{useEffect,useState} from "react";
 import { getMillets } from "../../api/milletApi";
 import Loader from "../../components/Loader";
+import { useNavigate } from "react-router-dom";
 
 function FarmerDashboard(){
 
 const [millets,setMillets]=useState([]);
 const [loading,setLoading]=useState(true);
+const navigate = useNavigate();
 
 useEffect(()=>{
 
@@ -13,7 +15,7 @@ const fetchData=async()=>{
 
 try{
 
-const res=await getMyMillets();
+const res=await getMillets();
 setMillets(res.data);
 
 }
@@ -43,7 +45,10 @@ return(
 🌾 Farmer Dashboard
 </h2>
 
-<button className="btn btn-success" >
+<button
+className="btn btn-success"
+onClick={()=>navigate("/farmer/add-millet")}
+>
 + Add Millet
 </button>
 
@@ -68,7 +73,7 @@ return(
 <div className="card-body">
 <h6>Total Stock</h6>
 <h3>
-{millets.reduce((a,b)=>a+b.quantity,0)} kg
+{millets.reduce((a,b)=>a + (b.quantity || 0),0)} kg
 </h3>
 </div>
 </div>
