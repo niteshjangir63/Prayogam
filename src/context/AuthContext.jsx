@@ -1,28 +1,39 @@
-import { createContext, useContext, useState } from "react";
+import React,{createContext,useState,useEffect} from "react";
+import {getProfile} from "../api/authApi";
 
-const AuthContext = createContext();
+export const AuthContext=createContext();
 
-export function AuthProvider({ children }) {
-  const [canAccessOtp, setCanAccessOtp] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [generatedOtp,setGeneratedOtp] = useState(null);
+export const AuthProvider=({children})=>{
 
-  return (
-    <AuthContext.Provider
-      value={{
-        canAccessOtp,
-        setCanAccessOtp,
-        isAuthenticated,
-        setIsAuthenticated,
-        generatedOtp,
-        setGeneratedOtp
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+const [user,setUser]=useState(null);
+const [loading,setLoading]=useState(true);
+
+useEffect(()=>{
+
+const loadUser=async()=>{
+
+try{
+const res=await getProfile();
+setUser(res.data);
+}
+catch(err){
+setUser(null);
 }
 
-export function useAuth() {
-  return useContext(AuthContext);
+setLoading(false);
+
+}
+
+loadUser();
+
+},[])
+
+return(
+
+<AuthContext.Provider value={{user,setUser,loading}}>
+{children}
+</AuthContext.Provider>
+
+)
+
 }

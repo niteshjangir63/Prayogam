@@ -1,49 +1,43 @@
-import { Route, Routes } from "react-router-dom";
-import FarmerDashboard from "./pages/FarmerDashboard/FarmerDashboard";
-import Login from "./Components/Authenthication/Login";
-import SignUp from "./Components/Authenthication/SignUp";
-import Otp from "./Components/Authenthication/Otp";
-import ProtectedRoute from "./ProtectedRoute";
-import ProtectedOtpRoute from "./ProtectedOtpRoute";
-import SelectRole from "./Components/SelectRole/SelectRole";
-import MilletDashboard from "./pages/MilletDashBoard/MilletDashboard";
-import AddMillets from "./Components/AddMillets/AddMillets";
+import React from "react";
+
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+import AppRoutes from "./routes/AppRoutes";
+
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
+
   return (
-    <Routes>
-      <Route path="/" element={<SelectRole />} />
-      <Route
-        path="/farmer"
-        element={
-          <ProtectedRoute>
-            <FarmerDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/customer"
-        element={
 
-          <MilletDashboard />
+    
 
-        }
-      />
-      <Route path="/add" element={
-        <ProtectedRoute>
-          <AddMillets />
-        </ProtectedRoute>} />
+      <AuthProvider>
+
+        <div className="d-flex flex-column min-vh-100">
+
+          {/* Navbar */}
+          <Navbar />
+
+          {/* Main Content */}
+          <main className="container mt-4 flex-grow-1">
+
+            <AppRoutes />
+
+          </main>
+
+          {/* Footer */}
+          <Footer />
+
+        </div>
+
+      </AuthProvider>
 
 
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/otp" element={
-        <ProtectedOtpRoute>
-          <Otp />
-        </ProtectedOtpRoute>
-      } />
-    </Routes>
   );
+
 }
 
 export default App;
