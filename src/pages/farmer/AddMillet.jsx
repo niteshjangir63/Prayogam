@@ -1,142 +1,238 @@
-import {useState} from "react";
-import {addMillet} from "../../api/milletApi";
+import { useState } from "react";
+import { addMillet } from "../../api/milletApi";
 import Loader from "../../components/Loader";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function AddMillet(){
+function AddMillet() {
+    const navigate = useNavigate();
 
-const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
-const [loading,setLoading]=useState(false);
+    const [form, setForm] = useState({
+        nameEnglish: "",
+        nameHindi: "",
+        type: "",
+        location: "",
+        price: "",
+        quantity: "",
+        harvestDate: "",
+        minOrder: "",
+        description: "",
+        organic: false,
+    });
 
-const [form,setForm]=useState({
-name:"",
-price:"",
-quantity:"",
-location:""
-});
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+    };
 
-const handleChange=(e)=>{
-setForm({...form,[e.target.name]:e.target.value});
-}
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-const handleSubmit=async(e)=>{
+        if (!form.nameEnglish || !form.price || !form.quantity) {
+            alert("Please fill all required fields");
+            return;
+        }
 
-e.preventDefault();
+        setLoading(true);
 
-/* simple validation */
+        try {
+            await addMillet(form);
 
-if(!form.name || !form.price || !form.quantity){
-alert("Please fill all required fields");
-return;
-}
+            alert("Millet Added Successfully 🌾");
 
-setLoading(true);
+            navigate("/farmer/dashboard");
+        } catch (err) {
+            console.log(err);
+            alert("Something went wrong");
+        }
 
-try{
+        setLoading(false);
+    };
 
-await addMillet(form);
+    if (loading) return <Loader />;
 
-alert("Millet Added Successfully 🌾");
+    return (
+        <div className="container py-4">
+            <div className="row justify-content-center">
+                <div className="col-lg-8">
+                    <div
+                        className="card shadow-lg border-0"
+                        style={{ borderRadius: "18px" }}
+                    >
+                        <div className="card-body p-4">
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <h4 className="fw-bold">Add New Product</h4>
+                                <button
+                                    className="btn-close"
+                                    onClick={() => navigate(-1)}
+                                ></button>
+                            </div>
 
-setForm({
-name:"",
-price:"",
-quantity:"",
-location:""
-});
+                            <form onSubmit={handleSubmit}>
+                                <div className="row">
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">
+                                            Name (English) *
+                                        </label>
+                                        <input
+                                            name="nameEnglish"
+                                            value={form.nameEnglish}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="e.g. Organic Jowar"
+                                        />
+                                    </div>
 
-/* redirect to farmer dashboard */
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">नाम (हिंदी)</label>
+                                        <input
+                                            name="nameHindi"
+                                            value={form.nameHindi}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="जैविक ज्वार"
+                                        />
+                                    </div>
 
-navigate("/farmer/dashboard");
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">
+                                            Millet Type *
+                                        </label>
+                                        <select
+                                            name="type"
+                                            value={form.type}
+                                            onChange={handleChange}
+                                            className="form-select"
+                                        >
+                                            <option value="">Select Type</option>
+                                            <option>Jowar</option>
+                                            <option>Bajra</option>
+                                            <option>Ragi</option>
+                                            <option>Foxtail</option>
+                                            <option>Kodo</option>
+                                        </select>
+                                    </div>
 
-}
-catch(err){
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Location</label>
+                                        <select
+                                            name="location"
+                                            value={form.location}
+                                            onChange={handleChange}
+                                            className="form-select"
+                                        >
+                                            <option value="">Select Location</option>
+                                            <option>Rajasthan</option>
+                                            <option>Haryana</option>
+                                            <option>Punjab</option>
+                                            <option>Madhya Pradesh</option>
+                                        </select>
+                                    </div>
 
-console.log(err);
-alert("Something went wrong");
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">
+                                            Price (₹/quintal) *
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="price"
+                                            value={form.price}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="2200"
+                                        />
+                                    </div>
 
-}
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">
+                                            Available Qty (quintals) *
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="quantity"
+                                            value={form.quantity}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="50"
+                                        />
+                                    </div>
 
-setLoading(false);
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">
+                                            Harvest Date
+                                        </label>
+                                        <input
+                                            type="date"
+                                            name="harvestDate"
+                                            value={form.harvestDate}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                        />
+                                    </div>
 
-}
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">
+                                            Min. Order (qtl)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="minOrder"
+                                            value={form.minOrder}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="1"
+                                        />
+                                    </div>
 
-if(loading) return <Loader/>
+                                    <div className="col-12 mb-3">
+                                        <label className="form-label">Description</label>
+                                        <textarea
+                                            rows="3"
+                                            name="description"
+                                            value={form.description}
+                                            onChange={handleChange}
+                                            className="form-control"
+                                            placeholder="Describe quality, growing method..."
+                                        />
+                                    </div>
 
-return(
+                                    <div className="col-12 mb-3">
+                                        <div className="form-check">
+                                            <input
+                                                type="checkbox"
+                                                name="organic"
+                                                checked={form.organic}
+                                                onChange={handleChange}
+                                                className="form-check-input"
+                                            />
+                                            <label className="form-check-label">
+                                                Certified Organic
+                                            </label>
+                                        </div>
+                                    </div>
 
-<div className="container py-4">
+                                    <div className="d-flex gap-3">
+                                        <button className="btn btn-success flex-grow-1">
+                                            ✔ Add Product
+                                        </button>
 
-<div className="row justify-content-center">
-
-<div className="col-md-6">
-
-<div className="card shadow-sm">
-
-<div className="card-body">
-
-<h3 className="mb-4 text-success text-center">
-🌾 Add Millet
-</h3>
-
-<form onSubmit={handleSubmit}>
-
-<input
-name="name"
-value={form.name}
-onChange={handleChange}
-className="form-control mb-3"
-placeholder="Millet Name"
-/>
-
-<input
-type="number"
-name="price"
-value={form.price}
-onChange={handleChange}
-className="form-control mb-3"
-placeholder="Price (₹)"
-/>
-
-<input
-type="number"
-name="quantity"
-value={form.quantity}
-onChange={handleChange}
-className="form-control mb-3"
-placeholder="Quantity (kg)"
-/>
-
-<input
-name="location"
-value={form.location}
-onChange={handleChange}
-className="form-control mb-4"
-placeholder="Farm Location"
-/>
-
-<button
-className="btn btn-success w-100"
-disabled={loading}
->
-Add Millet
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-)
-
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-secondary"
+                                            onClick={() => navigate(-1)}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default AddMillet;
