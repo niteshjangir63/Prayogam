@@ -1,151 +1,165 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { logoutUser } from "../api/authApi";
+import {logoutUser} from "../api/authApi";
 
-function Navbar() {
+function Navbar(){
 
-    const { user, setUser } = useAuth();
-    const navigate = useNavigate();
-
-    const handleLogout = async () => {
-
-        try {
-
-            await logoutUser();
-
-            setUser(null); // clear user state
-
-            navigate("/login");
-
-        } catch (err) {
-            console.log(err);
-        }
-
-    };
-
-    return (
-
-        <nav className="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
-
-            <div className="container">
-
-                <Link className="navbar-brand fw-bold" to="/">
-                    🌾 Millet Platform
-                </Link>
-
-                <button
-                    className="navbar-toggler"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#menu"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse" id="menu">
-
-                    {/* SEARCH BAR */}
-
-                    <form className="d-flex mx-auto w-50">
-
-                        <input
-                            className="form-control me-2"
-                            type="search"
-                            placeholder="Search millets..."
-                        />
-
-                        <button className="btn btn-light">
-                            Search
-                        </button>
-
-                    </form>
+const {user,setUser} = useAuth();
+const navigate = useNavigate();
 
 
-                    <ul className="navbar-nav ms-auto align-items-center">
+// LOGOUT FUNCTION
+const handleLogout = async () => {
 
-                        {/* MARKETPLACE */}
+try{
 
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/marketplace">
-                                Marketplace
-                            </Link>
-                        </li>
+await logoutUser(); // backend logout API
 
-                        {/* CART */}
+}
+catch(err){
+console.log(err);
+}
 
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/cart">
-                                🛒
-                            </Link>
-                        </li>
+// remove user from context
+setUser(null);
 
-                        {/* LOGIN OR USER MENU */}
+// redirect to login
+navigate("/login");
 
-                        {!user ? (
+};
 
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/login">
-                                    Login
-                                </Link>
-                            </li>
 
-                        ) : (
+return(
 
-                            <li className="nav-item dropdown">
+<nav className="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
 
-                                <a
-                                    className="nav-link dropdown-toggle"
-                                    href="#"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                >
+<div className="container">
 
-                                    👤 {user?.name || "User"}
+<Link className="navbar-brand fw-bold" to="/">
+🌾 Millet Platform
+</Link>
 
-                                </a>
 
-                                <ul className="dropdown-menu dropdown-menu-end">
+<button
+className="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#menu"
+>
+<span className="navbar-toggler-icon"></span>
+</button>
 
-                                    <li>
-                                        <Link className="dropdown-item" to="/profile">
-                                            Profile
-                                        </Link>
-                                    </li>
 
-                                    <li>
-                                        <Link className="dropdown-item" to="/orders">
-                                            Orders
-                                        </Link>
-                                    </li>
+<div className="collapse navbar-collapse" id="menu">
 
-                                    <li>
-                                        <hr className="dropdown-divider" />
-                                    </li>
+<ul className="navbar-nav ms-auto align-items-center">
 
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={handleLogout}
-                                        >
-                                            Logout
-                                        </button>
-                                    </li>
+{/* CUSTOMER DASHBOARD */}
 
-                                </ul>
+{user?.role === "customer" && (
 
-                            </li>
+<li className="nav-item">
+<Link
+className="nav-link"
+to="/customer/dashboard"
+>
+Customer Dashboard
+</Link>
+</li>
 
-                        )}
+)}
 
-                    </ul>
 
-                </div>
+{/* FARMER DASHBOARD */}
 
-            </div>
+{user?.role === "farmer" && (
 
-        </nav>
+<li className="nav-item">
+<Link
+className="nav-link"
+to="/farmer/dashboard"
+>
+Farmer Dashboard
+</Link>
+</li>
 
-    )
+)}
+
+
+{/* PROFILE */}
+
+{user && (
+
+<li className="nav-item">
+<Link
+className="nav-link"
+to="/profile"
+>
+Profile
+</Link>
+</li>
+
+)}
+
+
+{/* USER NAME */}
+
+{user && (
+
+<li className="nav-item">
+
+<span className="nav-link fw-semibold">
+👤 {user.name}
+</span>
+
+</li>
+
+)}
+
+
+{/* LOGIN */}
+
+{!user && (
+
+<li className="nav-item">
+<Link
+className="nav-link"
+to="/login"
+>
+Login
+</Link>
+</li>
+
+)}
+
+
+{/* LOGOUT */}
+
+{user && (
+
+<li className="nav-item">
+
+<button
+className="btn btn-light ms-2"
+onClick={handleLogout}
+>
+Logout
+</button>
+
+</li>
+
+)}
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+)
 
 }
 
