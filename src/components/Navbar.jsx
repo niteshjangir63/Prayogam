@@ -55,23 +55,16 @@ data-bs-target="#menu"
 
 <ul className="navbar-nav ms-auto align-items-center">
 
-{/* CUSTOMER DASHBOARD */}
-
-{user?.role === "customer" && (
+{/* FARMER DASHBOARD */}
 
 <li className="nav-item">
 <Link
 className="nav-link"
-to="/customer/dashboard"
+to="/marketplace"
 >
-Customer Dashboard
+Marketplace
 </Link>
 </li>
-
-)}
-
-
-{/* FARMER DASHBOARD */}
 
 {user?.role === "farmer" && (
 
@@ -87,20 +80,20 @@ Farmer Dashboard
 )}
 
 
-{/* PROFILE */}
-
-{user && (
+{user?.role === "customer" && (
 
 <li className="nav-item">
 <Link
 className="nav-link"
-to="/profile"
+to="/customer/dashboard"
 >
-Profile
+My Dashboard
 </Link>
 </li>
 
 )}
+
+
 
 
 {/* USER NAME */}
@@ -136,7 +129,7 @@ Login
 
 {/* LOGOUT */}
 
-{user && (
+{user && user?.role === "farmer" && (
 
 <li className="nav-item">
 

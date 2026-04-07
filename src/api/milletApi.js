@@ -5,5 +5,5 @@ return api.get("/millets");
 }
 
 export const addMillet=(data)=>{
-return api.post("/millets",data);
+return api.post("/millets/add",data);
 }

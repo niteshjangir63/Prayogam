@@ -7,3 +7,32 @@ img:hover{
 transform: scale(1.05);
 transition: 0.3s;
 }
+
+
+
+.step-circle{
+width:30px;
+height:30px;
+border-radius:50%;
+background:#e0e0e0;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+}
+
+.step-circle.active{
+background:#2e7d32;
+color:white;
+}
+
+.step-line{
+height:3px;
+background:#e0e0e0;
+flex:1;
+margin-top:-20px;
+}
+
+.step-line.active{
+background:#2e7d32;
+}

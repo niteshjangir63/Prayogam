@@ -3,120 +3,57 @@ import { getMillets } from "../api/milletApi";
 import Loader from "../components/Loader";
 import MilletCard from "../components/MilletCard";
 
-function Marketplace() {
+function Marketplace(){
 
-    const [millets, setMillets] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [search, setSearch] = useState("");
+const [millets,setMillets]=useState([]);
+const [loading,setLoading]=useState(true);
 
-    // FETCH MILLETS
-    const fetchMillets = async () => {
+useEffect(()=>{
 
-        setLoading(true);
+const fetchData=async()=>{
 
-        try {
+try{
 
-            const res = await getMillets();
+const res=await getMillets();
+setMillets(res.data.data);
 
-            // backend response: { success, count, data }
-            const data = res.data.data || [];
+}
+catch(err){
+console.log(err);
+}
 
-            setMillets(data);
+setLoading(false);
 
-        } catch (err) {
+}
 
-            console.log(err);
-            alert("Failed to load millets");
+fetchData();
 
-        }
+},[])
 
-        setLoading(false);
+if(loading) return <Loader/>
+if(!millets) return;
 
-    };
+return(
 
-    useEffect(() => {
-        fetchMillets();
-    }, []);
+<div>
 
+<h2 className="mb-4">Marketplace</h2>
 
-    // SEARCH FILTER
-    const filteredMillets = millets.filter((m) =>
-        m.nameEnglish?.toLowerCase().includes(search.toLowerCase())
-    );
+<div className="row g-3">
 
+{millets.map((m,i)=>(
 
-    if (loading) return <Loader />;
+<div className="col-sm-6 col-md-4 col-lg-3" key={i}>
+<MilletCard millet={m}/>
+</div>
 
+))}
 
-    return (
+</div>
 
-        <div className="container py-4">
+</div>
 
-            {/* HEADER */}
-
-            <div className="d-flex justify-content-between align-items-center mb-4">
-
-                <div>
-
-                    <h2 className="fw-bold text-success">
-                        🌾 Marketplace
-                    </h2>
-
-                    <p className="text-muted mb-0">
-                        Browse fresh millets directly from farmers
-                    </p>
-
-                </div>
-
-                <button
-                    className="btn btn-outline-success"
-                    onClick={fetchMillets}
-                >
-                    Refresh
-                </button>
-
-            </div>
-
-
-            {/* SEARCH */}
-
-            <input
-                className="form-control mb-4"
-                placeholder="Search millets..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
-
-
-            {/* MILLET LIST */}
-
-            {filteredMillets.length === 0 ? (
-
-                <div className="alert alert-warning">
-                    No millets found
-                </div>
-
-            ) : (
-
-                <div className="row g-4">
-
-                    {filteredMillets.map((m) => (
-
-                        <div key={m._id} className="col-sm-6 col-md-4 col-lg-3">
-
-                            <MilletCard millet={m} />
-
-                        </div>
-
-                    ))}
-
-                </div>
-
-            )}
-
-        </div>
-
-    );
+)
 
 }
 
