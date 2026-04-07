@@ -2,76 +2,82 @@ import React from "react";
 
 function MilletCard({ millet }) {
 
-return (
+  const imageUrl =
+    millet.photos && millet.photos.length > 0
+      ? `http://localhost:5000/uploads/${millet.photos[0]}`
+      : "https://via.placeholder.com/300x200";
 
-<div className="card h-100 shadow-sm border-0 product-card">
+  return (
 
-{/* PRODUCT IMAGE */}
+    <div className="card h-100 shadow-sm border-0 product-card">
 
-<div className="position-relative">
+      {/* PRODUCT IMAGE */}
 
-<img
-src={millet.images?.[0] || "https://via.placeholder.com/300x200"}
-className="card-img-top"
-style={{ height: "200px", objectFit: "cover" }}
-/>
+      <div className="position-relative">
 
-{/* ORGANIC BADGE */}
+        <img
+          src={imageUrl}
+          alt={millet.nameEnglish}
+          className="card-img-top"
+          style={{ height: "200px", objectFit: "cover" }}
+        />
 
-{millet.organic && (
-<span className="badge bg-success position-absolute top-0 start-0 m-2">
-Organic
-</span>
-)}
+        {/* ORGANIC BADGE */}
 
-</div>
+        {millet.organic && (
+          <span className="badge bg-success position-absolute top-0 start-0 m-2">
+            Organic
+          </span>
+        )}
+
+      </div>
 
 
-<div className="card-body d-flex flex-column">
+      <div className="card-body d-flex flex-column">
 
-{/* PRODUCT NAME */}
+        {/* PRODUCT NAME */}
 
-<h5 className="card-title fw-bold">
-{millet.name}
-</h5>
+        <h5 className="card-title fw-bold">
+          {millet.nameEnglish}
+        </h5>
 
-{/* FARMER */}
+        {/* FARMER */}
 
-<p className="text-muted mb-1">
-👨‍🌾 {millet.farmer?.name || "Local Farmer"}
-</p>
+        <p className="text-muted mb-1">
+          👨‍🌾 {millet.farmer?.name || "Local Farmer"}
+        </p>
 
-{/* LOCATION */}
+        {/* LOCATION */}
 
-<p className="text-muted mb-2">
-📍 {millet.location}
-</p>
+        <p className="text-muted mb-2">
+          📍 {millet.location || "Unknown"}
+        </p>
 
-{/* PRICE */}
+        {/* PRICE */}
 
-<h4 className="text-success fw-bold mb-3">
-₹{millet.price} / kg
-</h4>
+        <h4 className="text-success fw-bold mb-3">
+          ₹{millet.price} / quintal
+        </h4>
 
-{/* BUTTONS */}
+        {/* BUTTONS */}
 
-<div className="mt-auto">
+        <div className="mt-auto">
 
-<button className="btn btn-success w-100 mb-2">
-Buy Now
-</button>
+          <button className="btn btn-success w-100 mb-2">
+            Buy Now
+          </button>
 
-<button className="btn btn-outline-success w-100">
-Add to Cart
-</button>
+          <button className="btn btn-outline-success w-100">
+            Add to Cart
+          </button>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-</div>
+    </div>
 
-);
+  );
 
 }
 

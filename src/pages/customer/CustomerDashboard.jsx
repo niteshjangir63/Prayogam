@@ -1,58 +1,45 @@
-import React,{useEffect,useState} from "react";
-import {getMillets} from "../../api/milletApi";
+import { useEffect, useState } from "react";
+import { getOrders } from "../../api/orderApi";
 import Loader from "../../components/Loader";
-import MilletCard from "../../components/MilletCard";
+import OrderCard from "../../components/OrderCard";
+import CustomerNavbar from "../../components/CustomerNavbar";
 
 function CustomerDashboard(){
 
-const [millets,setMillets]=useState([]);
-const [loading,setLoading]=useState(true);
-const [search,setSearch]=useState("");
+const [orders,setOrders] = useState([]);
+const [loading,setLoading] = useState(true);
 
-
-// FETCH MILLETS
-const fetchMillets = async()=>{
+const fetchOrders = async()=>{
 
 setLoading(true);
 
 try{
 
-const res = await getMillets();
+const res = await getOrders();
 
-// prevent crash if API format changes
 const data = Array.isArray(res.data) ? res.data : res.data.data;
 
-setMillets(data || []);
+setOrders(data || []);
 
 }
 catch(err){
-
 console.log(err);
-alert("Failed to load millets");
-
+alert("Failed to load orders");
 }
 
 setLoading(false);
 
-};
-
+}
 
 useEffect(()=>{
-fetchMillets();
+fetchOrders();
 },[]);
-
-
-// FILTER FOR SEARCH
-const filteredMillets = millets.filter((m)=>
-m.name?.toLowerCase().includes(search.toLowerCase())
-);
-
 
 if(loading) return <Loader/>
 
-
 return(
-
+    <>
+<CustomerNavbar/>
 <div className="container py-4">
 
 {/* HEADER */}
@@ -62,62 +49,45 @@ return(
 <div>
 
 <h2 className="fw-bold text-success">
-🌾 Customer Dashboard
+📦 My Orders
 </h2>
 
 <p className="text-muted mb-0">
-Browse fresh millets directly from farmers
+Track your millet purchases
 </p>
 
 </div>
 
 <button
 className="btn btn-outline-success"
-onClick={fetchMillets}
+onClick={fetchOrders}
 >
 Refresh
 </button>
 
 </div>
 
+{/* ORDERS */}
 
-{/* SEARCH */}
+{orders.length === 0 ? (
 
-<input
-className="form-control mb-4"
-placeholder="Search millets..."
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-/>
-
-
-{/* MILLET LIST */}
-
-{filteredMillets.length === 0 ? (
-
-<div className="alert alert-warning">
-No millets found
+<div className="alert alert-info">
+You have not placed any orders yet.
 </div>
 
 ) : (
 
-<div className="row g-4">
-
-{filteredMillets.map((m)=>(
-<div key={m._id} className="col-sm-6 col-md-4 col-lg-3">
-
-<MilletCard millet={m}/>
-
-</div>
-))}
-
-</div>
+orders.map(order => (
+<OrderCard key={order._id} order={order}/>
+))
 
 )}
 
 </div>
+</>
 
 )
+
 
 }
 

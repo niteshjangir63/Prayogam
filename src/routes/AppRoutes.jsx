@@ -12,7 +12,6 @@ import FarmerOrders from "../pages/farmer/FarmerOrders";
 
 import CustomerDashboard from "../pages/customer/CustomerDashboard";
 import Cart from "../pages/customer/Cart";
-import Orders from "../pages/customer/Orders";
 import Profile from "../pages/Profile";
 
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -92,14 +91,7 @@ element={
         }
       />
 
-      <Route
-        path="/orders"
-        element={
-          <ProtectedRoute>
-            <Orders />
-          </ProtectedRoute>
-        }
-      />
+      
 
 
 

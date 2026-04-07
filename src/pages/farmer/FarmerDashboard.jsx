@@ -1,170 +1,163 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { getMillets } from "../../api/milletApi";
 import Loader from "../../components/Loader";
 import { useNavigate } from "react-router-dom";
 
-function FarmerDashboard(){
+function FarmerDashboard() {
 
-const [millets,setMillets]=useState([]);
-const [loading,setLoading]=useState(true);
-const navigate = useNavigate();
+  const [millets, setMillets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-useEffect(()=>{
+  const navigate = useNavigate();
 
-const fetchData=async()=>{
+  useEffect(() => {
 
-try{
+    const fetchData = async () => {
 
-const res = await getMillets();
+      try {
 
-/* Ensure millets is always an array */
+        const res = await getMillets();
 
-if(Array.isArray(res.data)){
-setMillets(res.data);
-}else if(Array.isArray(res.data.data)){
-setMillets(res.data.data);
-}else{
-setMillets([]);
-}
+        // backend response: { success, count, data }
+        setMillets(res.data.data || []);
 
-}
-catch(err){
-console.log(err);
-}
+      } catch (err) {
+        console.log(err);
+      }
 
-setLoading(false);
+      setLoading(false);
 
-}
+    };
 
-fetchData();
+    fetchData();
 
-},[])
+  }, []);
 
-if(loading) return <Loader/>
+  if (loading) return <Loader />;
 
-return(
+  return (
 
-<div className="container py-4">
+    <div className="container py-4">
 
-{/* HEADER */}
+      {/* HEADER */}
 
-<div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
 
-<h2 className="text-success fw-bold">
-🌾 Farmer Dashboard
-</h2>
+        <h2 className="text-success fw-bold">
+          🌾 Farmer Dashboard
+        </h2>
 
-<button
-className="btn btn-success"
-onClick={()=>navigate("/farmer/add-millet")}
->
-+ Add Millet
-</button>
+        <button
+          className="btn btn-success"
+          onClick={() => navigate("/farmer/add-millet")}
+        >
+          + Add Millet
+        </button>
 
-</div>
+      </div>
 
 
-{/* STATS */}
+      {/* STATS */}
 
-<div className="row mb-4">
+      <div className="row mb-4">
 
-<div className="col-md-4">
+        <div className="col-md-4">
 
-<div className="card shadow-sm">
+          <div className="card shadow-sm">
 
-<div className="card-body">
+            <div className="card-body">
 
-<h6>Total Millets</h6>
+              <h6>Total Millets</h6>
 
-<h3>{millets.length}</h3>
+              <h3>{millets.length}</h3>
 
-</div>
+            </div>
 
-</div>
+          </div>
 
-</div>
+        </div>
 
 
-<div className="col-md-4">
+        <div className="col-md-4">
 
-<div className="card shadow-sm">
+          <div className="card shadow-sm">
 
-<div className="card-body">
+            <div className="card-body">
 
-<h6>Total Stock</h6>
+              <h6>Total Stock</h6>
 
-<h3>
-{
-Array.isArray(millets)
-? millets.reduce((a,b)=>a + (b.quantity || 0),0)
-: 0
-} kg
-</h3>
+              <h3>
 
-</div>
+                {millets.reduce((a, b) => a + (b.quantity || 0), 0)}
 
-</div>
+              </h3>
 
-</div>
+            </div>
 
-</div>
+          </div>
 
+        </div>
 
-{/* MILLET LIST */}
+      </div>
 
-{millets.length === 0 ? (
 
-<div className="alert alert-warning">
-You have not added any millets yet
-</div>
+      {/* MILLET LIST */}
 
-):( 
+      {millets.length === 0 ? (
 
-<div className="row g-4">
+        <div className="alert alert-warning">
+          You have not added any millets yet
+        </div>
 
-{millets.map((m)=>(
+      ) : (
 
-<div key={m._id} className="col-sm-6 col-md-4 col-lg-3">
+        <div className="row g-4">
 
-<div className="card shadow-sm h-100 border-0">
+          {millets.map((m) => (
 
-<div className="card-body">
+            <div key={m._id} className="col-sm-6 col-md-4 col-lg-3">
 
-<h5 className="fw-bold text-success">
-{m.name}
-</h5>
+              <div className="card shadow-sm h-100 border-0">
 
-<p>Price: ₹{m.price}</p>
+                <div className="card-body">
 
-<p>Stock: {m.quantity} kg</p>
+                  <h5 className="fw-bold text-success">
+                    {m.nameEnglish}
+                  </h5>
 
-<div className="d-flex gap-2">
+                  <p>Type: {m.type}</p>
 
-<button className="btn btn-sm btn-primary w-100">
-Edit
-</button>
+                  <p>Price: ₹{m.price}</p>
 
-<button className="btn btn-sm btn-danger w-100">
-Delete
-</button>
+                  <p>Stock: {m.quantity}</p>
 
-</div>
+                  <div className="d-flex gap-2">
 
-</div>
+                    <button className="btn btn-sm btn-primary w-100">
+                      Edit
+                    </button>
 
-</div>
+                    <button className="btn btn-sm btn-danger w-100">
+                      Delete
+                    </button>
 
-</div>
+                  </div>
 
-))}
+                </div>
 
-</div>
+              </div>
 
-)}
+            </div>
 
-</div>
+          ))}
 
-)
+        </div>
+
+      )}
+
+    </div>
+
+  );
 
 }
 
